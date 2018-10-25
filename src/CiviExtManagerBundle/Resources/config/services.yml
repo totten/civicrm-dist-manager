@@ -5,4 +5,10 @@ services:
 
   civi_ext_manager.repo:
     class: CiviExtManagerBundle\CiviExtRepository
-    arguments: ['@civi_ext_manager.cache']
+    arguments: ['@civi_ext_manager.cache', '@event_dispatcher']
+
+  civi_ext_manager.mock_source:
+    class: 'CiviExtManagerBundle\ExtMockSource'
+    tags:
+     -
+       name: 'kernel.event_subscriber'

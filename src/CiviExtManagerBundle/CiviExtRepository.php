@@ -1,6 +1,9 @@
 <?php
 namespace CiviExtManagerBundle;
 
+use CiviExtManagerBundle\Event\FindExtensionsEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 class CiviExtRepository {
 
   /**
@@ -8,12 +11,15 @@ class CiviExtRepository {
    */
   protected $cache;
 
+  protected $dispatcher;
+
   /**
    * RevDocRepository constructor.
    * @param \Doctrine\Common\Cache\Cache $cache
    */
-  public function __construct(\Doctrine\Common\Cache\Cache $cache) {
+  public function __construct(\Doctrine\Common\Cache\Cache $cache, EventDispatcherInterface $dispatcher) {
     $this->cache = $cache;
+    $this->dispatcher = $dispatcher;
   }
 
   /**
@@ -22,8 +28,9 @@ class CiviExtRepository {
    *   Array(string $extKey => string $xml).
    */
   public function get($filters) {
-    $data = json_decode(file_get_contents(__DIR__ . '/Resources/mock-feed.json'), 1);
-    return $data;
+    $event = new FindExtensionsEvent($filters);
+    $this->dispatcher->dispatch(FindExtensionsEvent::EVENT_NAME, $event);
+    return $event->extensions;
   }
 
   /**
