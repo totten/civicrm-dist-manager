@@ -4,7 +4,7 @@ namespace CiviExtManagerBundle;
 use CiviExtManagerBundle\Event\FindExtensionsEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class CiviExtRepository {
+class ExtRepository {
 
   /**
    * @var \Doctrine\Common\Cache\Cache

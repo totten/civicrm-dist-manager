@@ -2,7 +2,7 @@
 
 namespace CiviExtManagerBundle\Controller;
 
-use CiviExtManagerBundle\CiviExtRepository;
+use CiviExtManagerBundle\ExtRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +46,7 @@ class DefaultController extends Controller {
   }
 
   /**
-   * @return CiviExtRepository
+   * @return ExtRepository
    */
   protected function getExtRepo() {
     return $this->container->get('civi_ext_manager.repo');

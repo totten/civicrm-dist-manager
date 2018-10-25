@@ -4,7 +4,7 @@ services:
     arguments: ['%kernel.cache_dir%/extdir']
 
   civi_ext_manager.repo:
-    class: CiviExtManagerBundle\CiviExtRepository
+    class: CiviExtManagerBundle\ExtRepository
     arguments: ['@civi_ext_manager.cache', '@event_dispatcher']
 
   civi_ext_manager.mock_source:
