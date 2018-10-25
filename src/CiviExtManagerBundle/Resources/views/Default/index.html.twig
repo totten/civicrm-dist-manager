@@ -1,1 +1,5 @@
-Hello World!
+<ul>
+    {% for ext in exts %}
+        <li><a href="{{ ext }}.xml">{{ ext }}.xml</a></li>
+    {% endfor %}
+</ul>
