@@ -22,10 +22,8 @@ class CiviExtRepository {
    *   Array(string $extKey => string $xml).
    */
   public function get($filters) {
-    return [
-      'mock.ext1' => '<extension key="mock.ext1"></extension>',
-      'mock.ext2' => '<extension key="mock.ext2"></extension>'
-    ];
+    $data = json_decode(file_get_contents(__DIR__ . '/Resources/mock-feed.json'), 1);
+    return $data;
   }
 
   /**
