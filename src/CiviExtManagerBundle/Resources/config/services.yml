@@ -19,3 +19,10 @@ services:
     tags:
      -
        name: 'kernel.event_subscriber'
+
+  civi_ext_manager.backfill_categories:
+    class: 'CiviExtManagerBundle\ExtBackfillCategories'
+    arguments: ['%kernel.root_dir%/config/ext-categories.json', '@logger']
+    tags:
+     -
+       name: 'kernel.event_subscriber'
