@@ -13,8 +13,8 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class FindExtensionsEvent extends Event {
 
-  const PRIORITY_LOAD = 100;
-  const PRIORITY_FILTER = 200;
+  const PRIORITY_LOAD = 1000;
+  const PRIORITY_FILTER = 500;
   const EVENT_NAME = 'civi.extmgr.find_extensions';
 
   /**

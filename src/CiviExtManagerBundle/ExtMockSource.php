@@ -17,20 +17,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ExtMockSource implements EventSubscriberInterface {
 
   public function onFindExtensions(FindExtensionsEvent $e) {
-    $filters = FilterCodex::decode($e->getFilterExpr());
-    if (isset($filters['mock']) && $filters['mock'] == '1') {
-      $mocks = json_decode(file_get_contents(__DIR__ . '/Resources/mock-feed.json'), 1);
-      $e->extensions = array_merge($e->extensions, $mocks);
+    if (!empty($e->extensions)) {
+      return;
     }
+
+    $filters = FilterCodex::decode($e->getFilterExpr());
+
+    if (!isset($filters['mock'])) {
+      return;
+    }
+
+    $e->extensions = json_decode(file_get_contents(__DIR__ . '/Resources/mock-feed.json'), 1);
   }
 
   public static function getSubscribedEvents() {
     return [
       FindExtensionsEvent::EVENT_NAME => [
-        [
-          'onFindExtensions',
-          FindExtensionsEvent::PRIORITY_LOAD
-        ]
+        ['onFindExtensions', FindExtensionsEvent::PRIORITY_LOAD + 10]
       ],
     ];
   }
