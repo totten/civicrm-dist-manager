@@ -42,6 +42,7 @@ class FindExtensionsEvent extends Event {
 
   /**
    * @return string
+   *   Ex: 'ver=1.2.3|cms=FooBar'.
    */
   public function getFilterExpr() {
     return $this->filterExpr;

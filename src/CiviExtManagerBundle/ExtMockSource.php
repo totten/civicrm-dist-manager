@@ -12,7 +12,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * The mock source handles requests like `/extdir/ver=1.2.3|mock=1/`.
  * It simply loads the extension list from the `mock-feed.json` file.
  *
- * NOTE: This filter does *not* interpret
+ * NOTE: This filter does *not* interpret filter criteria.
+ * It simply returns the mock data.
  */
 class ExtMockSource implements EventSubscriberInterface {
 
