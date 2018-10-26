@@ -7,6 +7,13 @@ services:
     class: CiviExtManagerBundle\ExtRepository
     arguments: ['@civi_ext_manager.cache', '@event_dispatcher']
 
+  civi_ext_manager.url_source:
+    class: 'CiviExtManagerBundle\ExtUrlSource'
+    arguments: ['https://civicrm.org/extdir/{filterExpr}/single']
+    tags:
+     -
+       name: 'kernel.event_subscriber'
+
   civi_ext_manager.mock_source:
     class: 'CiviExtManagerBundle\ExtMockSource'
     tags:
