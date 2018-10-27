@@ -4,8 +4,8 @@ services:
     arguments: ['%kernel.cache_dir%/extdir']
 
   civi_ext_manager.repo:
-    class: CiviExtManagerBundle\ExtRepository
-    arguments: ['@civi_ext_manager.cache', '@event_dispatcher']
+    class: 'CiviExtManagerBundle\ExtRepository'
+    arguments: ['@event_dispatcher', '@civi_ext_manager.cache', 900]
 
   civi_ext_manager.url_source:
     class: 'CiviExtManagerBundle\ExtUrlSource'

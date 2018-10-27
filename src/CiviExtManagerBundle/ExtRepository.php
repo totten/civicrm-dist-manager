@@ -14,12 +14,19 @@ class ExtRepository {
   protected $dispatcher;
 
   /**
+   * @var int
+   *   Number of seconds to retain a cached record.
+   */
+  protected $ttl;
+
+  /**
    * RevDocRepository constructor.
    * @param \Doctrine\Common\Cache\Cache $cache
    */
-  public function __construct(\Doctrine\Common\Cache\Cache $cache, EventDispatcherInterface $dispatcher) {
-    $this->cache = $cache;
+  public function __construct(EventDispatcherInterface $dispatcher, \Doctrine\Common\Cache\Cache $cache, $ttl) {
     $this->dispatcher = $dispatcher;
+    $this->cache = $cache;
+    $this->ttl = $ttl;
   }
 
   /**
@@ -28,9 +35,15 @@ class ExtRepository {
    *   Array(string $extKey => string $xml).
    */
   public function get($filters) {
-    $event = new FindExtensionsEvent($filters);
-    $this->dispatcher->dispatch(FindExtensionsEvent::EVENT_NAME, $event);
-    return $event->extensions;
+    $cacheKey = 'ext_' . $filters;
+    $data = $this->cache->fetch($cacheKey);
+    if (FALSE === $data) {
+      $event = new FindExtensionsEvent($filters);
+      $this->dispatcher->dispatch(FindExtensionsEvent::EVENT_NAME, $event);
+      $data = $event->extensions;
+      $this->cache->save($cacheKey, $data, $this->ttl);
+    }
+    return $data;
   }
 
   /**
