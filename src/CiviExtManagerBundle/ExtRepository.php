@@ -2,6 +2,8 @@
 namespace CiviExtManagerBundle;
 
 use CiviExtManagerBundle\Event\FindExtensionsEvent;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\ChainCache;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ExtRepository {
@@ -25,7 +27,7 @@ class ExtRepository {
    */
   public function __construct(EventDispatcherInterface $dispatcher, \Doctrine\Common\Cache\Cache $cache, $ttl) {
     $this->dispatcher = $dispatcher;
-    $this->cache = $cache;
+    $this->cache = new ChainCache([new ArrayCache(), $cache]);
     $this->ttl = $ttl;
   }
 
