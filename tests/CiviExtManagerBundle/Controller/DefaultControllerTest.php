@@ -44,6 +44,8 @@ class DefaultControllerTest extends WebTestCase {
     $crawler = $client->request('GET', '/extdir/ver=4.7.99|cms=Drupal|mock=1/org.civicoop.smsapi.xml');
     $xml = simplexml_load_string($client->getResponse()->getContent());
     $this->assertEquals('org.civicoop.smsapi', $xml['key']);
+    $expectedXml = "<?xml version=\"1.0\"?>\n<extension key=\"org.civicoop.smsapi\" type=\"module\">\n  <file>smsapi</file>\n  <name>SMS API</name>\n  <description>API to send an sms to a contact</description>\n  <license>AGPL-3.0</license>\n  <maintainer>\n    <author>Jaap Jansma - CiviCooP</author>\n    <email>helpdesk@civicoop.org</email>\n  </maintainer>\n  <urls>\n    <url desc=\"Main Extension Page\">https://guthub.com/CiviCooP/org.civicoop.smsapi</url>\n    <url desc=\"documentation\">https://guthub.com/CiviCooP/org.civicoop.smsapi/README.md</url>\n    <url desc=\"Support\">http://civicoop.org</url>\n    <url desc=\"Licensing\">http://www.gnu.org/licenses/agpl-3.0.html</url>\n  </urls>\n  <releaseDate>2018-06-13</releaseDate>\n  <version>1.5</version>\n  <develStage>stable</develStage>\n  <compatibility>\n    <ver>4.3</ver>\n    <ver>4.4</ver>\n    <ver>4.5</ver>\n    <ver>4.6</ver>\n    <ver>4.7</ver>\n    <ver>5.0</ver>\n    <ver>5.1</ver>\n  </compatibility>\n  <comments>\n    Original developed by http://civicoop.org. Contributed by http://www.ixiam.com\n  </comments>\n  <civix>\n    <namespace>CRM/Smsapi</namespace>\n  </civix>\n<downloadUrl>https://github.com/CiviCooP/org.civicoop.smsapi/archive/v1.5.zip</downloadUrl></extension>\n";
+    $this->assertEquals($expectedXml, $client->getResponse()->getContent());
   }
 
   public function testExtInfoXml_missingXmlExtension() {
