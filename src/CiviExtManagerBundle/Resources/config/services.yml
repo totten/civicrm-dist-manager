@@ -9,7 +9,7 @@ services:
 
   civi_ext_manager.url_source:
     class: 'CiviExtManagerBundle\ExtUrlSource'
-    arguments: ['https://civicrm.org/extdir/{filterExpr}/single']
+    arguments: ['https://civicrm.org/extdir-backend/{filterExpr}/single']
     tags:
      -
        name: 'kernel.event_subscriber'
